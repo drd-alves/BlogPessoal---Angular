@@ -13,9 +13,12 @@ export class FeedComponent implements OnInit {
   reverse = true
 
   listaPostagens: Postagem[]
+
   postagem: Postagem = new Postagem
+
   alerta: boolean = false
 
+  titulo: string
 
   constructor(private  postagemSevice: PostagemService) { } 
 
@@ -47,6 +50,12 @@ export class FeedComponent implements OnInit {
     this.postagemSevice.postPostagem(this.postagem).subscribe((res: Postagem)=>{
       this.postagem = res
       location.assign('/feed')
+    })
+  }
+
+  pesquisarPorTitulo(){
+    this.postagemSevice.findByTitulo(this.titulo).subscribe((res: Postagem[])=>{
+      this.listaPostagens = res
     })
   }
 }
